@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Copy, Check, Eye, EyeOff, Wifi, WifiOff, Bot, Zap } from 'lucide-react'
 import { useMcpStore } from '../../store/useMcpStore'
 
-const MCP_URL = 'http://localhost:3721/mcp'
+const MCP_URL = 'http://100.126.226.118:3721/mcp'
 const MCP_KEY = '84ad49cdefe16fd0bb57bd0c85eef4f6a4bddc86a701d97bd651b2c20cdc5863'
 const APP_URL = 'https://aube-marketing-os.vercel.app'
 const GITHUB_URL = 'https://github.com/labo45000/aube-marketing-os'
