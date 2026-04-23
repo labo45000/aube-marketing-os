@@ -259,52 +259,21 @@ export default function Settings() {
         </div>
       </div>
 
-      {/* Agent Prompt */}
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, borderBottom: '1px solid var(--border)', paddingBottom: 14 }}>
-          <Bot size={14} color="#A78BFA" />
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 500, color: 'var(--fg)', letterSpacing: '0.04em' }}>PROMPT AGENT</span>
-          <span style={{ fontSize: 12, color: 'var(--muted)', marginLeft: 4 }}>— prêt à coller dans Openclaw ou tout agent MCP</span>
-        </div>
+      {/* Integration steps */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
 
-        {/* Workflow selector */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Workflow</span>
-          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-            {Object.entries(WORKFLOWS).map(([key, { label }]) => (
-              <button
-                key={key}
-                onClick={() => setActiveWorkflow(key as keyof typeof WORKFLOWS)}
-                style={{
-                  padding: '5px 12px',
-                  borderRadius: 6,
-                  border: `1px solid ${activeWorkflow === key ? '#A78BFA' : 'var(--border)'}`,
-                  background: activeWorkflow === key ? '#1E1A2E' : 'var(--bg)',
-                  color: activeWorkflow === key ? '#A78BFA' : 'var(--muted)',
-                  fontSize: 12,
-                  cursor: 'pointer',
-                  fontFamily: 'var(--font-mono)',
-                  transition: 'all 0.15s',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 5,
-                }}
-              >
-                {activeWorkflow === key && <Zap size={10} />}
-                {label}
-              </button>
-            ))}
+        {/* Step 1 — MCP config */}
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, borderBottom: '1px solid var(--border)', paddingBottom: 14 }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, fontWeight: 700, color: '#4ADE80', background: '#0F2A1A', border: '1px solid #1A4A2A', borderRadius: 4, padding: '2px 7px' }}>ÉTAPE 1</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 500, color: 'var(--fg)', letterSpacing: '0.04em' }}>CONNECTER LE MCP SERVER</span>
           </div>
-        </div>
-
-        {/* Prompt preview */}
-        <div style={{ position: 'relative' }}>
-          <textarea
-            readOnly
-            value={WORKFLOWS[activeWorkflow].prompt}
-            style={{
-              width: '100%',
-              minHeight: 320,
+          <p style={{ fontSize: 12, color: 'var(--muted)', margin: 0, lineHeight: 1.6 }}>
+            Dans les paramètres de ton agent (Openclaw, Claude Code, Cursor…), ajoute le serveur MCP avec cette configuration.
+            <strong style={{ color: '#F5F2EC' }}> Sans cette étape, les outils ne sont pas disponibles.</strong>
+          </p>
+          <div style={{ position: 'relative' }}>
+            <pre style={{
               fontFamily: 'var(--font-mono)',
               fontSize: 11,
               lineHeight: 1.65,
@@ -313,41 +282,9 @@ export default function Settings() {
               border: '1px solid var(--border)',
               borderRadius: 8,
               padding: '14px 16px',
-              resize: 'vertical',
-              outline: 'none',
-              boxSizing: 'border-box',
-            }}
-          />
-          <div style={{ position: 'absolute', top: 10, right: 10 }}>
-            <CopyButton text={WORKFLOWS[activeWorkflow].prompt} />
-          </div>
-        </div>
-
-        <p style={{ fontSize: 11, color: 'var(--muted)', fontFamily: 'var(--font-mono)', lineHeight: 1.6, margin: 0 }}>
-          Colle ce prompt comme <strong style={{ color: '#A78BFA' }}>system prompt</strong> dans Openclaw, puis configure le MCP server avec l'URL et la clé ci-dessus.
-          L'agent aura accès aux 32 outils du Marketing OS et suivra les règles d'usage définies.
-        </p>
-      </div>
-
-      {/* .mcp.json snippet */}
-      <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, borderBottom: '1px solid var(--border)', paddingBottom: 14 }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 500, color: 'var(--fg)', letterSpacing: '0.04em' }}>CONFIG .MCP.JSON</span>
-          <span style={{ fontSize: 12, color: 'var(--muted)', marginLeft: 4 }}>— pour Claude Code / clients MCP</span>
-        </div>
-        <div style={{ position: 'relative' }}>
-          <pre style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            lineHeight: 1.65,
-            color: '#C8C5BE',
-            background: '#111110',
-            border: '1px solid var(--border)',
-            borderRadius: 8,
-            padding: '14px 16px',
-            margin: 0,
-            overflow: 'auto',
-          }}>
+              margin: 0,
+              overflow: 'auto',
+            }}>
 {`{
   "mcpServers": {
     "aube-marketing-os": {
@@ -359,11 +296,95 @@ export default function Settings() {
     }
   }
 }`}
-          </pre>
-          <div style={{ position: 'absolute', top: 10, right: 10 }}>
-            <CopyButton text={`{\n  "mcpServers": {\n    "aube-marketing-os": {\n      "type": "http",\n      "url": "${MCP_URL}",\n      "headers": {\n        "Authorization": "Bearer ${MCP_KEY}"\n      }\n    }\n  }\n}`} />
+            </pre>
+            <div style={{ position: 'absolute', top: 10, right: 10 }}>
+              <CopyButton text={`{\n  "mcpServers": {\n    "aube-marketing-os": {\n      "type": "http",\n      "url": "${MCP_URL}",\n      "headers": {\n        "Authorization": "Bearer ${MCP_KEY}"\n      }\n    }\n  }\n}`} />
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Par agent</span>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              {[
+                { agent: 'Claude Code', instruction: 'Colle dans .mcp.json à la racine du projet' },
+                { agent: 'Openclaw', instruction: 'Settings → MCP Servers → Add Server → colle l\'URL + Bearer token' },
+                { agent: 'Cursor', instruction: 'Settings → MCP → ajoute un serveur HTTP avec l\'URL et le header' },
+              ].map(({ agent, instruction }) => (
+                <div key={agent} style={{ display: 'flex', gap: 10, fontSize: 11, fontFamily: 'var(--font-mono)' }}>
+                  <span style={{ color: '#A78BFA', flexShrink: 0, minWidth: 100 }}>{agent}</span>
+                  <span style={{ color: 'var(--muted)' }}>{instruction}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+
+        {/* Step 2 — System prompt */}
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, borderBottom: '1px solid var(--border)', paddingBottom: 14 }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, fontWeight: 700, color: '#A78BFA', background: '#1E1A2E', border: '1px solid #3A2A5E', borderRadius: 4, padding: '2px 7px' }}>ÉTAPE 2</span>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 500, color: 'var(--fg)', letterSpacing: '0.04em' }}>SYSTEM PROMPT</span>
+            <Bot size={13} color="#A78BFA" style={{ marginLeft: 2 }} />
+          </div>
+          <p style={{ fontSize: 12, color: 'var(--muted)', margin: 0, lineHeight: 1.6 }}>
+            Colle ce prompt dans le <strong style={{ color: '#F5F2EC' }}>champ system prompt</strong> de ton agent. Il lui donne le contexte ∆ÜBE et les règles d'usage des outils.
+          </p>
+
+          {/* Workflow selector */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Workflow</span>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              {Object.entries(WORKFLOWS).map(([key, { label }]) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveWorkflow(key as keyof typeof WORKFLOWS)}
+                  style={{
+                    padding: '5px 12px',
+                    borderRadius: 6,
+                    border: `1px solid ${activeWorkflow === key ? '#A78BFA' : 'var(--border)'}`,
+                    background: activeWorkflow === key ? '#1E1A2E' : 'var(--bg)',
+                    color: activeWorkflow === key ? '#A78BFA' : 'var(--muted)',
+                    fontSize: 12,
+                    cursor: 'pointer',
+                    fontFamily: 'var(--font-mono)',
+                    transition: 'all 0.15s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 5,
+                  }}
+                >
+                  {activeWorkflow === key && <Zap size={10} />}
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ position: 'relative' }}>
+            <textarea
+              readOnly
+              value={WORKFLOWS[activeWorkflow].prompt}
+              style={{
+                width: '100%',
+                minHeight: 300,
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                lineHeight: 1.65,
+                color: '#C8C5BE',
+                background: '#111110',
+                border: '1px solid var(--border)',
+                borderRadius: 8,
+                padding: '14px 16px',
+                resize: 'vertical',
+                outline: 'none',
+                boxSizing: 'border-box',
+              }}
+            />
+            <div style={{ position: 'absolute', top: 10, right: 10 }}>
+              <CopyButton text={WORKFLOWS[activeWorkflow].prompt} />
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   )
