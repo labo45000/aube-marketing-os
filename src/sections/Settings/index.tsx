@@ -13,7 +13,7 @@ Objectif 3 ans : festival majeur (Coachella / Tomorrowland).
 
 ## Environnement déployé
 - Interface : ${APP_URL} (production Vercel)
-- MCP Server : ${MCP_URL} (local — doit tourner sur la machine de l'utilisateur)
+- MCP Server : ${MCP_URL} (Tailnet — accessible depuis tous les appareils du réseau Tailscale)
 - GitHub : ${GITHUB_URL}
 - Les données sont synchronisées en temps réel entre le MCP server et l'interface.
 
