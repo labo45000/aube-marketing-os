@@ -4,8 +4,12 @@ import { useMcpStore } from '../../store/useMcpStore'
 
 const MCP_URL = 'http://localhost:3721/mcp'
 const MCP_KEY = '84ad49cdefe16fd0bb57bd0c85eef4f6a4bddc86a701d97bd651b2c20cdc5863'
+const APP_URL = 'https://aube-marketing-os.vercel.app'
+const GITHUB_URL = 'https://github.com/labo45000/aube-marketing-os'
 
 const SKILL_CONTENT = `Tu es connecté au Marketing OS de l'artiste ∆ÜBE (Augustin Besse, Paris FR).
+App déployée : ${APP_URL}
+Code source : ${GITHUB_URL}
 ∆ÜBE est un DJ/producteur de tech house et afro house, en phase de lancement de sa carrière artistique en 2026. Objectif 3 ans : festival majeur (Coachella / Tomorrowland).
 
 ## Contexte permanent
@@ -335,7 +339,7 @@ export default function Settings() {
           }}>
 {`{
   "mcpServers": {
-    "dube-marketing-os": {
+    "aube-marketing-os": {
       "type": "http",
       "url": "${MCP_URL}",
       "headers": {
@@ -346,7 +350,7 @@ export default function Settings() {
 }`}
           </pre>
           <div style={{ position: 'absolute', top: 10, right: 10 }}>
-            <CopyButton text={`{\n  "mcpServers": {\n    "dube-marketing-os": {\n      "type": "http",\n      "url": "${MCP_URL}",\n      "headers": {\n        "Authorization": "Bearer ${MCP_KEY}"\n      }\n    }\n  }\n}`} />
+            <CopyButton text={`{\n  "mcpServers": {\n    "aube-marketing-os": {\n      "type": "http",\n      "url": "${MCP_URL}",\n      "headers": {\n        "Authorization": "Bearer ${MCP_KEY}"\n      }\n    }\n  }\n}`} />
           </div>
         </div>
       </div>
